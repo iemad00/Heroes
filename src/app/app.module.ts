@@ -5,12 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisrerComponent } from './components/auth/regisrer/regisrer.component';
+import { AddHeroComponent } from './components/heroes/add-hero/add-hero.component';
+import { HeroesListComponent } from './components/heroes/heroes-list/heroes-list.component';
+import { HeroProfileComponent } from './components/heroes/hero-profile/hero-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisrerComponent
+    RegisrerComponent,
+    AddHeroComponent,
+    HeroesListComponent,
+    HeroProfileComponent
   ],
   imports: [
     BrowserModule,
