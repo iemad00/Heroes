@@ -1,1 +1,87 @@
-<p>register works!</p>
+<div class="header bg-gradient-primary py-7 py-lg-8">
+  <div class="separator separator-bottom separator-skew zindex-100">
+    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+</div>
+
+<div class="container mt--8 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+      <div class="card bg-secondary shadow border-0">
+        <div class="card-header bg-transparent">
+          <div class="text-muted text-center mt-2">
+            <h1>Register as a Hero!</h1>
+          </div>
+        </div>
+        <div class="card-body px-lg-5 py-lg-5">
+          <form role="form" [formGroup]="signUpForm">
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <input class="form-control pl-4" placeholder="Hero Name" type="text" formControlName="heroName">
+              </div>
+              <small class="text-danger ml-2" *ngIf="!isValid(signUpForm.controls['heroName'])">* Name should be at least 4 letters</small>
+            </div>
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <input class="form-control pl-4" placeholder="Email Address" type="email" formControlName="email">
+              </div>
+              <small class="text-danger ml-2" *ngIf="!isValid(signUpForm.controls['email'])">* Write a valid email</small>
+            </div>
+
+            <div formArrayName="powers" class="form-group mb-3">
+              <div *ngFor="let power of powers.controls; let i = index" class="input-group input-group-alternative mb-2" [formGroupName]="i" style="align-items: center;">
+                <input class="form-control pl-4" [placeholder]="(powers.controls.length != 1)? 'Power ' + (i + 1): 'Your Powers'" formControlName="power">
+                <i class="fa fa-times link text-danger mr-3 pl-3" *ngIf="powers.controls.length > 1" (click)="removePower(i)"></i>
+              </div>
+              <a class="link pl-2" style="display: block;" (click)="addPower()" *ngIf="powers.controls.length < 5">Add Power</a>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <input class="form-control pl-4" placeholder="Password" type="password" formControlName="password">
+              </div>
+              <small class="text-danger ml-2" *ngIf="!isValid(signUpForm.controls['password'])">* Password is too weak!</small>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <input class="form-control pl-4" placeholder="Confirm Password" type="password" formControlName="confirmPassword">
+              </div>
+              <small class="text-danger ml-2" *ngIf="!isPasswordMatch()">* Passwords don't match!</small>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="custom-control custom-control-alternative custom-checkbox">
+                  <input class="custom-control-input" id="customCheckRegister" type="checkbox" formControlName="agree">
+                  <label class="custom-control-label" for="customCheckRegister">
+                    <span class="text-muted">I agree with the <a>Privacy Policy</a></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+
+              <button type="button" class="btn btn-primary mt-4" (click)="signUp()"
+              [disabled]="!isFormValid() || loading">
+              <ng-container *ngIf="!loading">Create account</ng-container>
+              <i class="fa fa-spin fa-spinner" *ngIf="loading"></i>
+            </button>
+
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-6">
+          <a href="javascript:void(0)" routerLink="/login" class="text-light"><small>Login in</small></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
