@@ -12,3 +12,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .link:hover{
   opacity: .6;
 }
+
+@media(min-width: 992px) {
+  .container-fluid{
+    width: 70% !important;
+  }
+}
+
+
+@media(min-width: 1600px) {
+  .container-fluid{
+    width: 50% !important;
+  }
+}

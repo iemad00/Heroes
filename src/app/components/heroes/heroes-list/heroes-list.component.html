@@ -1,1 +1,71 @@
-<p>heroes-list works!</p>
+
+<div class="header bg-gradient-primary pb-9 pt-5 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+
+<div class="container-fluid mt--9">
+
+
+  <div class="row mb-2 d-flex">
+    <a  class="btn btn-info mb-2 ml-3">Add Hero</a>
+
+    <div class="col-sm-12 col-md-8 col-lg-6 input-group input-group-alternative ml-auto">
+      <input class="form-control" id="search" placeholder="Search for a hero" type="text">
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 d-flex">
+          <h3 class="mb-0">Heroes List</h3>
+
+
+        <div class="btn-group btn-group-toggle mr-3 ml-auto" data-toggle="buttons">
+          <label class="btn btn-secondary" [ngClass]="{'active': sortBy=='name'}">
+            <input type="radio" name="options" id="sort-by-name" autocomplete="off" (click)="sortBy = 'name'"> Sort By Name
+          </label>
+          <label class="btn btn-secondary" [ngClass]="{'active': sortBy=='power'}">
+            <input type="radio" name="options" id="sort-by-power" autocomplete="off" (click)="sortBy = 'power'"> Sort By Power
+          </label>
+        </div>
+
+
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Here Name</th>
+                <th scope="col">Powers</th>
+                <th scope="col">Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let hero of heroes; let i = index">
+                <td>
+                  {{hero.name | uppercase}}
+                </td>
+                <td>
+                  {{hero.powers}}
+                </td>
+                <td>
+                  {{hero.rate}}
+                </td>
+
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
