@@ -46,9 +46,13 @@
             </thead>
             <tbody>
 
-              <tr *ngFor="let hero of heroes; let i = index">
+              <tr *ngFor="let hero of filteredHeroes; let i = index">
                 <td>{{hero.name | uppercase}}</td>
-                <td>{{hero.powers}}</td>
+                <td>
+                  <ng-container *ngFor="let power of hero.powers">
+                    <span class="badge badge-primary mr-1 power-badge">{{ power }}</span>
+                  </ng-container>
+                </td>
                 <td [innerHTML]="hero.rate | starRating"></td>
               </tr>
 
