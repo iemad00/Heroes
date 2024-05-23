@@ -22,26 +22,20 @@
 
             <div class="form-group mb-3">
               <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                </div>
-                <input class="form-control" placeholder="Email" type="email" formControlName="email">
+                <input class="form-control pl-4" placeholder="Email" type="email" formControlName="email">
               </div>
             </div>
 
             <div class="form-group">
               <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                </div>
-                <input class="form-control" placeholder="Password" type="password" formControlName="password">
+                <input class="form-control pl-4" placeholder="Password" type="password" formControlName="password">
               </div>
             </div>
 
             <div class="text-center">
-              <button type="submit" class="btn btn-primary mt-4" [disabled]="!signInForm.valid">
-              <ng-container>Sign in</ng-container>
-              <i class="fa fa-spin fa-spinner"></i>
+              <button type="submit" class="btn btn-primary mt-4" [disabled]="!signInForm.valid" (click)="signIn()">
+              <ng-container *ngIf="!loading">Sign in</ng-container>
+              <i class="fa fa-spin fa-spinner" *ngIf="loading"></i>
             </button>
             </div>
 
