@@ -47,17 +47,9 @@
             <tbody>
 
               <tr *ngFor="let hero of heroes; let i = index">
-                <td>
-                  {{hero.name | uppercase}}
-                </td>
-                <td>
-                  {{hero.powers}}
-                </td>
-                <td>
-                  {{hero.rate}}
-                </td>
-
-
+                <td>{{hero.name | uppercase}}</td>
+                <td>{{hero.powers}}</td>
+                <td [innerHTML]="hero.rate | starRating"></td>
               </tr>
 
             </tbody>
