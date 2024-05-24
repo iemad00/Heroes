@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray, AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { InputComponent } from '../input/input.component';
-import { FormArrayInputComponent } from '../form-array-input/form-array-input.component';
-import { RadioInputComponent } from '../radio-input/radio-input.component';
+import { InputComponent } from '../../shared/input/input.component';
+import { FormArrayInputComponent } from '../../shared/form-array-input/form-array-input.component';
+import { RadioInputComponent } from '../../shared/radio-input/radio-input.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { IUser } from 'src/app/interfaces/user';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialogRef } from '@angular/material/dialog';
+import { HeroService } from 'src/app/services/hero.service';
 
 @Component({
   selector: 'app-create-hero-form',
@@ -25,8 +30,11 @@ export class CreateHeroFormComponent {
     powers: new FormArray([
       this.createPower()
     ]),
-  });;
+  });
 
+  constructor(private heroService: HeroService,
+    @Optional() private dialogRef: MatDialogRef<CreateHeroFormComponent>,
+    private toastr: ToastrService){}
 
   isValid(formControl: AbstractControl){
     return !(!formControl.valid && formControl.touched);
@@ -59,6 +67,27 @@ export class CreateHeroFormComponent {
   }
 
   signUp(){
+    this.loading = true;
+    const dto = { ...this.signUpForm.value }
+    const credentials = {
+      email: dto.email,
+      password: dto.password
+    }
+
+    // Modify the data before sending it to service
+    delete dto.confirmPassword;
+    delete dto.email;
+    delete dto.password;
+    dto.powers = dto.powers.map((powerObj: { power: any; }) => powerObj.power);
+
+    this.heroService.createHero(dto, credentials as IUser).then(res => {
+      this.loading = false;
+      this.dialogRef?.close();
+    }).catch(err => {
+      this.loading = false;
+      this.toastr.error(err)
+    })
+
 
   }
 }
