@@ -1,0 +1,15 @@
+<div *ngIf="formGroup" class="form-group mb-3" [formGroup]="formGroup">
+  <div class="input-group input-group-alternative">
+    <input class="form-control pl-4" [placeholder]="placeholder" [type]="type" [formControlName]="controlName!">
+  </div>
+  <small class="text-danger ml-2" *ngIf="errorMessage && !formGroup.controls[controlName!].valid && formGroup.controls[controlName!].touched">
+    {{ errorMessage }}
+  </small>
+</div>
+
+<div *ngIf="!formGroup" class="form-group mb-3">
+  <div class="input-group input-group-alternative">
+    <input class="form-control pl-4" [value]="value" disabled>
+  </div>
+</div>
+
