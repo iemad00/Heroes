@@ -5,7 +5,8 @@ import { HeroesListComponent } from 'src/app/components/heroes/heroes-list/heroe
 
 
 export const HeroesLayoutRoutes: Routes = [
-  { path: '', component: HeroesListComponent },
+  { path: 'heroes', component: HeroesListComponent },
   { path: 'heroes/add', component: AddHeroComponent },
-  { path: 'heroes/:id', component: HeroProfileComponent }
+  { path: 'heroes/:id', component: HeroProfileComponent },
+  { path: 'my-profile', component: HeroProfileComponent }
 ];

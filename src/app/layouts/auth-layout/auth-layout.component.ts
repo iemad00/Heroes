@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-layout',
@@ -7,14 +8,26 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class AuthLayoutComponent implements OnInit, OnDestroy {
 
-  constructor() {}
+  test: Date = new Date();
+  public isCollapsed = true;
 
- ngOnInit() {
+  constructor(private router: Router) {
+   }
+
+  ngOnInit() {
+    const html = document.getElementsByTagName("html")[0];
+    html.classList.add("auth-layout");
     const body = document.getElementsByTagName("body")[0];
     body.classList.add("bg-default");
- }
- ngOnDestroy() {
+    this.router.events.subscribe((event) => {
+      this.isCollapsed = true;
+   });
+
+  }
+  ngOnDestroy() {
+    const html = document.getElementsByTagName("html")[0];
+    html.classList.remove("auth-layout");
     const body = document.getElementsByTagName("body")[0];
     body.classList.remove("bg-default");
- }
+  }
 }

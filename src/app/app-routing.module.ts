@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HeroesListComponent } from './components/heroes/heroes-list/heroes-list.component';
-import { LoginComponent } from './components/auth/login/login.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { HeroesLayoutComponent } from './layouts/heroes-layout/heroes-layout.component';
 
 const routes: Routes = [
-
+  {
+    path: '',
+    redirectTo: 'heroes',
+    pathMatch: 'full',
+  },
   {
     path: '',
     component: HeroesLayoutComponent,
@@ -27,7 +29,7 @@ const routes: Routes = [
       }
     ]
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'heroes' }
 ];
 
 

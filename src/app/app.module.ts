@@ -8,12 +8,15 @@ import { AuthLayoutModule } from './layouts/auth-layout/auth-layout.module';
 import { HeroesLayoutModule } from './layouts/heroes-layout/heroes-layout.module';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { HeroesLayoutComponent } from './layouts/heroes-layout/heroes-layout.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './components/common/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroesLayoutComponent,
     AuthLayoutComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +26,7 @@ import { HeroesLayoutComponent } from './layouts/heroes-layout/heroes-layout.com
     BrowserAnimationsModule,
     AuthLayoutModule,
     HeroesLayoutModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
