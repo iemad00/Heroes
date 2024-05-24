@@ -5,9 +5,26 @@
       "email": "ealbalawi@hotmail.com",
       "password": "Aa123123.",
       "role": "admin"
+    },
+    {
+      "id": "c7e0",
+      "email": "a@gmail.com",
+      "password": "Aa123123.",
+      "role": "hero"
     }
   ],
   "hero": [
-
+    {
+      "id": "6a7a",
+      "heroName": "Superman",
+      "age": "28",
+      "gender": "m",
+      "powers": [
+        "Fly",
+        "Angular",
+        "Java"
+      ],
+      "userId": "c7e0"
+    }
   ]
 }
