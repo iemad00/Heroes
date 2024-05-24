@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, Optional } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray, AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { InputComponent } from '../../shared/input/input.component';
-import { FormArrayInputComponent } from '../../shared/form-array-input/form-array-input.component';
-import { RadioInputComponent } from '../../shared/radio-input/radio-input.component';
+import { InputComponent } from '../input/input.component';
+import { FormArrayInputComponent } from '../form-array-input/form-array-input.component';
+import { RadioInputComponent } from '../radio-input/radio-input.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { IUser } from 'src/app/interfaces/user';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HeroService } from 'src/app/services/hero.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-hero-form',
@@ -33,6 +34,7 @@ export class CreateHeroFormComponent {
   });
 
   constructor(private heroService: HeroService,
+    private router: Router,
     @Optional() private dialogRef: MatDialogRef<CreateHeroFormComponent>,
     private toastr: ToastrService){}
 
@@ -82,7 +84,12 @@ export class CreateHeroFormComponent {
 
     this.heroService.createHero(dto, credentials as IUser).then(res => {
       this.loading = false;
-      this.dialogRef?.close();
+
+      if(this.dialogRef) // if admin creates the hero
+        this.dialogRef?.close();
+      else // if user register
+        this.router.navigate(['/login'])
+
     }).catch(err => {
       this.loading = false;
       this.toastr.error(err)
