@@ -16,6 +16,7 @@
     <!-- Hero Details  -->
     <ng-container *ngIf="hero">
       <app-input [value]="hero.heroName" label="Hero Name"></app-input>
+      <app-input [value]="hero.age" label="Age"></app-input>
       <app-input [value]="hero.gender=='m'? 'Male': 'Female'" label="Gender"></app-input>
       <app-input [value]="hero.powers" label="Power"></app-input>
       <app-input [value]="(hero.rates?heroSerivce.avgRates(hero.rates):0) + ' / ' + 5" label="Rate"></app-input>
