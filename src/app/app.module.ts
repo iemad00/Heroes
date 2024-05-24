@@ -5,11 +5,11 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthLayoutModule } from './layouts/auth-layout/auth-layout.module';
-import { HeroesLayoutModule } from './layouts/heroes-layout/heroes-layout.module';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { HeroesLayoutComponent } from './layouts/heroes-layout/heroes-layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { NavbarComponent } from './components/common/navbar/navbar.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AuthLayoutModule,
-    HeroesLayoutModule,
+    MatDialogModule,
     NgbModule
   ],
   providers: [],

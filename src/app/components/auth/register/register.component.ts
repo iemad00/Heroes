@@ -20,7 +20,6 @@ export class RegisterComponent{
     powers: new FormArray([
       this.createPower()
     ]),
-    agree: new FormControl(false, Validators.requiredTrue),
   });;
 
 

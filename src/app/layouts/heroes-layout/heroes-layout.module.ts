@@ -6,6 +6,7 @@ import { AddHeroComponent } from 'src/app/components/heroes/add-hero/add-hero.co
 import { HeroProfileComponent } from 'src/app/components/heroes/hero-profile/hero-profile.component';
 import { HeroesListComponent } from 'src/app/components/heroes/heroes-list/heroes-list.component';
 import { StarRatingPipe } from 'src/app/pipes/star-rating.pipe';
+import { HeroDetailsComponent } from 'src/app/components/heroes/hero-profile/hero-details/hero-details.component';
 
 
 
@@ -14,6 +15,7 @@ import { StarRatingPipe } from 'src/app/pipes/star-rating.pipe';
     AddHeroComponent,
     HeroesListComponent,
     HeroProfileComponent,
+    HeroDetailsComponent,
     StarRatingPipe
   ],
   imports: [

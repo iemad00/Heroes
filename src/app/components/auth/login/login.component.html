@@ -19,18 +19,8 @@
 
           <form [formGroup]="signInForm">
 
-
-            <div class="form-group mb-3">
-              <div class="input-group input-group-alternative">
-                <input class="form-control pl-4" placeholder="Email" type="email" formControlName="email">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="input-group input-group-alternative">
-                <input class="form-control pl-4" placeholder="Password" type="password" formControlName="password">
-              </div>
-            </div>
+            <app-input [formGroup]="signInForm" controlName="email" type="email" placeholder="Email"></app-input>
+            <app-input [formGroup]="signInForm" controlName="password" type="password" placeholder="Password"></app-input>
 
             <div class="text-center">
               <button type="submit" class="btn btn-primary mt-4" [disabled]="!signInForm.valid" (click)="signIn()">

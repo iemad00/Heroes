@@ -13,74 +13,25 @@
         <img [src]="'../../../../assets/img/superHeroLogo.png'"class="rounded-circle">
       </div>
       <div class="card bg-secondary shadow border-0 mt-5">
-
         <div class="card-header bg-transparent">
-
           <div class="text-muted text-center mt-2">
-
             <h1>Register as a Hero!</h1>
           </div>
         </div>
+
         <div class="card-body px-lg-5 py-lg-5">
           <form role="form" [formGroup]="signUpForm">
-            <div class="form-group mb-3">
-              <div class="input-group input-group-alternative">
-                <input class="form-control pl-4" placeholder="Hero Name" type="text" formControlName="heroName">
-              </div>
-              <small class="text-danger ml-2" *ngIf="!isValid(signUpForm.controls['heroName'])">* Name should be at least 4 letters</small>
-            </div>
 
-            <div class="form-group mb-3">
-              <div class="input-group input-group-alternative">
-                <input class="form-control pl-4" placeholder="Age" type="number" formControlName="age">
-              </div>
-              <small class="text-danger ml-2" *ngIf="!isValid(signUpForm.controls['age'])">* Enter The Age</small>
-            </div>
+            <app-input [formGroup]="signUpForm" controlName="heroName" placeholder="Hero Name" errorMessage="* Name should be at least 4 letters"></app-input>
+            <app-input [formGroup]="signUpForm" controlName="age" type="number" placeholder="Age" errorMessage="* Enter The Age"></app-input>
+            <app-input [formGroup]="signUpForm" controlName="email" type="email" placeholder="Email Address" errorMessage="* Write a valid email"></app-input>
 
-            <div class="form-group mb-3">
-              <div class="input-group input-group-alternative">
-                <input class="form-control pl-4" placeholder="Email Address" type="email" formControlName="email">
-              </div>
-              <small class="text-danger ml-2" *ngIf="!isValid(signUpForm.controls['email'])">* Write a valid email</small>
-            </div>
+            <app-radio-input [formGroup]="signUpForm" controlName="gender" label="Gender"></app-radio-input>
+            <app-form-array-input [formArray]="powers" [parentForm]="signUpForm" controlName="powers" placeholder="Power" (add)="addPower()" (remove)="removePower($event)"></app-form-array-input>
 
+            <app-input [formGroup]="signUpForm" controlName="password" type="password" placeholder="Password" errorMessage="* Password is too weak!"></app-input>
+            <app-input [formGroup]="signUpForm" controlName="confirmPassword" type="password" placeholder="Confirm Password" errorMessage="* Passwords don't match!"></app-input>
 
-            <div class="input-box col-lg-12">
-              <label class="label-text">Gender</label>
-              <div class="form-group align-items-center">
-                  <div class="custom-control custom-radio mb-1">
-                      <input type="radio" class="custom-control-input" id="maleRadioCheck" name="gender" value="m" formControlName="gender">
-                      <label class="custom-control-label custom--control-label" for="maleRadioCheck">Male</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                      <input type="radio" class="custom-control-input" id="femaleRadioCheck" name="gender" value="f" required formControlName="gender">
-                      <label class="custom-control-label custom--control-label" for="femaleRadioCheck">Female</label>
-                  </div>
-              </div>
-            </div>
-
-
-            <div formArrayName="powers" class="form-group mb-3">
-              <div *ngFor="let power of powers.controls; let i = index" class="input-group input-group-alternative mb-2" [formGroupName]="i" style="align-items: center;">
-                <input class="form-control pl-4" [placeholder]="(powers.controls.length != 1)? 'Power ' + (i + 1): 'Your Powers'" formControlName="power">
-                <i class="fa fa-times link text-danger mr-3 pl-3" *ngIf="powers.controls.length > 1" (click)="removePower(i)"></i>
-              </div>
-              <a class="link pl-2" style="display: block;" (click)="addPower()" *ngIf="powers.controls.length < 5">Add Power</a>
-            </div>
-
-            <div class="form-group">
-              <div class="input-group input-group-alternative">
-                <input class="form-control pl-4" placeholder="Password" type="password" formControlName="password">
-              </div>
-              <small class="text-danger ml-2" *ngIf="!isValid(signUpForm.controls['password'])">* Password is too weak!</small>
-            </div>
-
-            <div class="form-group">
-              <div class="input-group input-group-alternative">
-                <input class="form-control pl-4" placeholder="Confirm Password" type="password" formControlName="confirmPassword">
-              </div>
-              <small class="text-danger ml-2" *ngIf="!isPasswordMatch()">* Passwords don't match!</small>
-            </div>
 
             <div class="text-center">
               <button type="button" class="btn btn-primary mt-4" (click)="signUp()"
@@ -88,9 +39,9 @@
                     <ng-container *ngIf="!loading">Create account</ng-container>
                     <i class="fa fa-spin fa-spinner" *ngIf="loading"></i>
               </button>
-
             </div>
           </form>
+
         </div>
       </div>
 
