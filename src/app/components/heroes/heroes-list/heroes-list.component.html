@@ -21,7 +21,7 @@
 
         <div class="btn-group btn-group-toggle mr-3 ml-auto" data-toggle="buttons">
           <label class="btn btn-secondary" [ngClass]="{'active': sortBy=='name'}">
-            <input type="radio" name="options" id="sort-by-name" autocomplete="off" (click)="sortHeros('name')"> Sort By Name
+           <input type="radio" name="options" id="sort-by-name" autocomplete="off" (click)="sortHeros('name')"> Sort By Name
           </label>
           <label class="btn btn-secondary" [ngClass]="{'active': sortBy=='power'}">
             <input type="radio" name="options" id="sort-by-power" autocomplete="off" (click)="sortHeros('power')"> Sort By Power
@@ -37,18 +37,23 @@
                 <th scope="col">Here Name</th>
                 <th scope="col">Powers</th>
                 <th scope="col">Rate</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
 
-              <tr *ngFor="let hero of filteredHeroes; let i = index" class="link" (click)="heroDetails(hero)">
-                <td>{{hero.name | uppercase}}</td>
+              <tr *ngFor="let hero of filteredHeroes; let i = index">
+                <td class="link" (click)="heroDetails(hero)">{{hero.name | uppercase}}</td>
                 <td>
                   <ng-container *ngFor="let power of hero.powers">
                     <span class="badge badge-primary mr-1 power-badge">{{ power }}</span>
                   </ng-container>
                 </td>
                 <td [innerHTML]="hero.rate | starRating"></td>
+
+
+                <td><button class="btn btn-sm btn-primary" (click)="rate(hero.id)">Rate</button></td>
+
               </tr>
 
             </tbody>

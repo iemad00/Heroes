@@ -1,0 +1,26 @@
+
+<div mat-dialog-content class="modal-content pt-6">
+  <div class="modal-body text-center" [formGroup]="ratingForm">
+    <div class="leave-rating">
+      <input type="radio" id="star5" value="5" formControlName="stars"/>
+      <label for="star5" class="fas fa-star"></label>
+      <input type="radio" id="star4" value="4" formControlName="stars"/>
+      <label for="star4" class="fas fa-star fs-45"></label>
+      <input type="radio" id="star3" value="3" formControlName="stars"/>
+      <label for="star3" class="fas fa-star fs-45"></label>
+      <input type="radio" id="star2" value="2" formControlName="stars"/>
+      <label for="star2" class="fas fa-star fs-45"></label>
+      <input type="radio" id="star1" value="1" formControlName="stars"/>
+      <label for="star1" class="fas fa-star fs-45"></label>
+      <div class="rating-result-text fs-20 pb-4"></div>
+    </div>
+
+    <div class="text-center">
+      <button type="button" class="btn btn-primary mt-4" (click)="submit()"
+              [disabled]="!ratingForm.valid || loading">
+            <ng-container *ngIf="!loading">Send Rating</ng-container>
+            <i class="fa fa-spin fa-spinner" *ngIf="loading"></i>
+      </button>
+    </div>
+  </div>
+</div>

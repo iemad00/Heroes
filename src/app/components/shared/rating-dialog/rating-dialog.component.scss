@@ -1,0 +1,66 @@
+
+.leave-rating {
+  width: auto;
+  display: inline-block;
+  position: relative; }
+  .leave-rating input {
+    display: none; }
+    .leave-rating input:checked ~ label::before {
+      color: #F68A03; }
+    .leave-rating input:nth-of-type(5):checked ~ .rating-result-text::before {
+      content: "Bad!"; }
+    .leave-rating input:nth-of-type(4):checked ~ .rating-result-text::before {
+      content: "Okay!"; }
+    .leave-rating input:nth-of-type(3):checked ~ .rating-result-text::before {
+      content: "Good!"; }
+    .leave-rating input:nth-of-type(2):checked ~ .rating-result-text::before {
+      content: "Very Good!"; }
+    .leave-rating input:nth-of-type(1):checked ~ .rating-result-text::before {
+      content: "Excelent!!"; }
+  .leave-rating label {
+    float: right;
+    display: inline-block;
+    position: relative;
+    padding-right: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 0; }
+    .leave-rating label::before {
+      font-family: 'Font Awesome 5 Free';
+      content: "\f005";
+      color: rgba(128, 137, 150, 0.4);
+      font-weight: 900;
+    }
+    .leave-rating label:hover ~ label::before {
+      color: #F68A03; }
+    .leave-rating label:hover::before {
+      color: #F68A03; }
+    .leave-rating label:nth-of-type(5):hover ~ .rating-result-text::before {
+      content: "Bad!"; }
+    .leave-rating label:nth-of-type(4):hover ~ .rating-result-text::before {
+      content: "Okay!"; }
+    .leave-rating label:nth-of-type(3):hover ~ .rating-result-text::before {
+      content: "Good!"; }
+    .leave-rating label:nth-of-type(2):hover ~ .rating-result-text::before {
+      content: "Very Good!"; }
+    .leave-rating label:nth-of-type(1):hover ~ .rating-result-text::before {
+      content: "Excelent!!"; }
+
+.leave--rating {
+  background-color: rgba(128, 137, 150, 0.1);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  padding: 10px 18px; }
+
+.rating-result-text {
+  color: #233d63;
+  padding-bottom: 10px;
+  position: absolute;
+  width: 100%;
+  bottom: 100%; }
+  .rating-result-text::before {
+    content: "Rate This Hero";
+    font-size: 1.5rem;
+    width: 100%;
+  }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HeroProfileComponent } from '../hero-profile/hero-profile.component';
 import { HeroDetailsComponent } from '../hero-profile/hero-details/hero-details.component';
+import { RatingDialogComponent } from '../../shared/rating-dialog/rating-dialog.component';
 
 @Component({
   selector: 'app-heroes-list',
@@ -19,7 +20,7 @@ export class HeroesListComponent implements OnInit {
       id: 1,
       name: "Emad",
       powers: ['Angular', 'Nodejs', 'Python'],
-      rate: 3.5
+      rate: 1.5
     },
     {
       id: 2,
@@ -58,6 +59,13 @@ export class HeroesListComponent implements OnInit {
   heroDetails(hero: any){
     this.dialog.open(HeroDetailsComponent, {
       data: hero,
+      width: '400px'
+    })
+  }
+
+  rate(heroId: number){
+    this.dialog.open(RatingDialogComponent, {
+      data: heroId,
       width: '400px'
     })
   }

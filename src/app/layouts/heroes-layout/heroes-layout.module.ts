@@ -11,6 +11,7 @@ import { FormArrayInputComponent } from 'src/app/components/shared/form-array-in
 import { InputComponent } from 'src/app/components/shared/input/input.component';
 import { RadioInputComponent } from 'src/app/components/shared/radio-input/radio-input.component';
 import { CreateHeroFormComponent } from 'src/app/components/shared/create-hero-form/create-hero-form.component';
+import { RatingDialogComponent } from 'src/app/components/shared/rating-dialog/rating-dialog.component';
 
 
 
@@ -29,6 +30,7 @@ import { CreateHeroFormComponent } from 'src/app/components/shared/create-hero-f
     FormArrayInputComponent,
     RadioInputComponent,
     CreateHeroFormComponent,
+    RatingDialogComponent
   ]
 })
 export class HeroesLayoutModule { }
