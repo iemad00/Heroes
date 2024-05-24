@@ -12,6 +12,8 @@ export class RegisterComponent{
 
   signUpForm: FormGroup = new FormGroup({
     heroName: new FormControl('', [Validators.minLength(4), Validators.required]),
+    age: new FormControl('', [Validators.required]),
+    gender: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[.@$!%*#?&^_-]).{8,}/)]),
     confirmPassword: new FormControl('', Validators.required),

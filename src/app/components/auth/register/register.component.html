@@ -9,9 +9,15 @@
 <div class="container mt--8 pb-5">
   <div class="row justify-content-center">
     <div class="col-lg-5 col-md-7">
-      <div class="card bg-secondary shadow border-0">
+      <div class="card-profile-image mt-3">
+        <img [src]="'../../../../assets/img/superHeroLogo.png'"class="rounded-circle">
+      </div>
+      <div class="card bg-secondary shadow border-0 mt-5">
+
         <div class="card-header bg-transparent">
+
           <div class="text-muted text-center mt-2">
+
             <h1>Register as a Hero!</h1>
           </div>
         </div>
@@ -26,10 +32,33 @@
 
             <div class="form-group mb-3">
               <div class="input-group input-group-alternative">
+                <input class="form-control pl-4" placeholder="Age" type="number" formControlName="age">
+              </div>
+              <small class="text-danger ml-2" *ngIf="!isValid(signUpForm.controls['age'])">* Enter The Age</small>
+            </div>
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
                 <input class="form-control pl-4" placeholder="Email Address" type="email" formControlName="email">
               </div>
               <small class="text-danger ml-2" *ngIf="!isValid(signUpForm.controls['email'])">* Write a valid email</small>
             </div>
+
+
+            <div class="input-box col-lg-12">
+              <label class="label-text">Gender</label>
+              <div class="form-group align-items-center">
+                  <div class="custom-control custom-radio mb-1">
+                      <input type="radio" class="custom-control-input" id="maleRadioCheck" name="gender" value="m" formControlName="gender">
+                      <label class="custom-control-label custom--control-label" for="maleRadioCheck">Male</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input" id="femaleRadioCheck" name="gender" value="f" required formControlName="gender">
+                      <label class="custom-control-label custom--control-label" for="femaleRadioCheck">Female</label>
+                  </div>
+              </div>
+            </div>
+
 
             <div formArrayName="powers" class="form-group mb-3">
               <div *ngFor="let power of powers.controls; let i = index" class="input-group input-group-alternative mb-2" [formGroupName]="i" style="align-items: center;">
@@ -53,23 +82,12 @@
               <small class="text-danger ml-2" *ngIf="!isPasswordMatch()">* Passwords don't match!</small>
             </div>
 
-            <div class="row mt-4">
-              <div class="col-12">
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id="customCheckRegister" type="checkbox" formControlName="agree">
-                  <label class="custom-control-label" for="customCheckRegister">
-                    <span class="text-muted">I agree with the <a>Privacy Policy</a></span>
-                  </label>
-                </div>
-              </div>
-            </div>
             <div class="text-center">
-
               <button type="button" class="btn btn-primary mt-4" (click)="signUp()"
-              [disabled]="!isFormValid() || loading">
-              <ng-container *ngIf="!loading">Create account</ng-container>
-              <i class="fa fa-spin fa-spinner" *ngIf="loading"></i>
-            </button>
+                    [disabled]="!isFormValid() || loading">
+                    <ng-container *ngIf="!loading">Create account</ng-container>
+                    <i class="fa fa-spin fa-spinner" *ngIf="loading"></i>
+              </button>
 
             </div>
           </form>
