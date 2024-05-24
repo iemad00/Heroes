@@ -1,0 +1,10 @@
+
+<div [formGroup]="parentForm">
+  <div [formArrayName]="controlName" class="form-group mb-3">
+    <div *ngFor="let item of formArray.controls; let i = index" [formGroupName]="i" class="input-group input-group-alternative mb-2" style="align-items: center;">
+      <input class="form-control pl-4" [placeholder]="placeholder + ' ' + (i + 1)" formControlName="power">
+      <i class="fa fa-times link text-danger mr-3 pl-3" *ngIf="formArray.controls.length > 1" (click)="removeItem(i)"></i>
+    </div>
+    <a class="link pl-2" style="display: block;" (click)="addItem()" *ngIf="formArray.controls.length < maxItems">Add Power</a>
+  </div>
+</div>
