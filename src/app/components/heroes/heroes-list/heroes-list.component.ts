@@ -71,6 +71,7 @@ export class HeroesListComponent implements OnInit {
 
 
   heroDetails(hero: any){
+    hero.rate = this.avgRates(hero.rates)
     this.dialog.open(HeroDetailsComponent, {
       data: hero,
       width: '400px'
