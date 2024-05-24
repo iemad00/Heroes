@@ -1,0 +1,27 @@
+/* dialog.component.css */
+.dialog-container {
+  position: relative;
+  padding-top: 80px; /* Adjust this value based on your image height */
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+  position: absolute;
+  top: -50px; /* Adjust this value based on your image height */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.image-container img {
+  width: 100px; /* Adjust this value based on your image size */
+  height: 100px; /* Adjust this value based on your image size */
+  border-radius: 50%;
+  border: 5px solid white; /* Optional: to create a border around the image */
+}
+
+.dialog-content {
+  text-align: center;
+  padding: 20px;
+}
