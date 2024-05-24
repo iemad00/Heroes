@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class HeroProfileComponent {
 
+  hero = {
+    id: 1,
+    name: "Emad",
+    powers: ['Angular', 'Nodejs', 'Python'],
+    rate: 3.5
+  }
+
+
 }

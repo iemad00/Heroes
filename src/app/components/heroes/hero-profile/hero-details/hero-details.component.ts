@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -8,7 +8,11 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class HeroDetailsComponent implements OnInit {
 
-  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public hero: any){}
+  @Input() hero: any;
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any){
+    if (data)
+      this.hero = data;
+  }
 
   ngOnInit(): void {
     // throw new Error('Method not implemented.');

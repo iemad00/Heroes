@@ -62,4 +62,10 @@ export class HeroesListComponent implements OnInit {
     })
   }
 
+  addHero(){
+    this.dialog.open(HeroDetailsComponent, {
+      width: '400px'
+    })
+  }
+
 }

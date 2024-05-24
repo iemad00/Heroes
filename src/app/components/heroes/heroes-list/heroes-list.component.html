@@ -4,7 +4,7 @@
 
 
   <div class="row mb-2 d-flex">
-    <a  class="btn btn-info mb-2 ml-3">Add Hero</a>
+    <a  class="btn btn-info mb-2 ml-3" (click)="addHero()">Add Hero</a>
 
     <div class="col-sm-12 col-md-8 col-lg-6 input-group input-group-alternative ml-auto">
       <input (keyup)="search($event)" class="form-control" id="search" placeholder="Search for a hero" type="text">
