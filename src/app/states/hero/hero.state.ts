@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { GetHeroList, CreateHero } from './hero.actions';
 import { IHero } from 'src/app/interfaces/hero';
-import { tap } from 'rxjs/operators';
 import { HeroService } from 'src/app/services/hero.service';
+import { ToastrService } from 'ngx-toastr';
 
 export interface HeroStateModel {
   heroList: IHero[];
@@ -20,7 +20,10 @@ export interface HeroStateModel {
 
 @Injectable()
 export class HeroState {
-  constructor(private heroService: HeroService) {}
+  constructor
+  (private heroService: HeroService,
+    private toastr: ToastrService
+    ) {}
 
   @Selector()
   static heroes(state: HeroStateModel) {
@@ -40,15 +43,15 @@ export class HeroState {
   }
 
   @Action(CreateHero)
-  createHero(ctx: StateContext<HeroStateModel>, action: CreateHero) {
-    return this.heroService.getHeroes().subscribe((heroes: any) => {
+  async createHero(ctx: StateContext<HeroStateModel>, action: CreateHero) {
+      await this.heroService.createHero(action.hero, action.credentials).then(newHero => {
 
-      this.heroService.createHero(action.hero, action.credentials).then(newHero => {
         const state = ctx.getState();
         ctx.patchState({ heroList: [...state.heroList, newHero] });
-      })
 
-    });
+      }).catch(err => {
+        this.toastr.error(err)
+      })
   }
 
 }
