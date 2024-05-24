@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IUser } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loading: boolean = false;
 
   signInForm = new FormGroup({
@@ -15,8 +17,16 @@ export class LoginComponent {
     password: new FormControl('', Validators.required),
   });
 
+  constructor(private authService: AuthService){}
+
+  ngOnInit(): void {
+    this.authService.loading$.subscribe(loading => {
+      this.loading = loading;
+    });
+  }
+
 
   signIn(){
-
+    this.authService.signIn(this.signInForm.value as IUser);
   }
 }

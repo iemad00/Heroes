@@ -9,6 +9,8 @@ import { HeroesLayoutComponent } from './layouts/heroes-layout/heroes-layout.com
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
