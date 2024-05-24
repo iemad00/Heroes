@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { GetHeroList, CreateHero } from './hero.actions';
+import { GetHeroList, CreateHero, RateHero } from './hero.actions';
 import { IHero } from 'src/app/interfaces/hero';
 import { HeroService } from 'src/app/services/hero.service';
 import { ToastrService } from 'ngx-toastr';
 
 export interface HeroStateModel {
   heroList: IHero[];
-  selectedHero: IHero | null;
 }
 
 @State<HeroStateModel>({
   name: 'hero',
   defaults: {
-    heroList: [],
-    selectedHero: null
+    heroList: []
   }
 })
 
@@ -28,11 +26,6 @@ export class HeroState {
   @Selector()
   static heroes(state: HeroStateModel) {
     return state.heroList;
-  }
-
-  @Selector()
-  static selectedHero(state: HeroStateModel) {
-    return state.selectedHero;
   }
 
   @Action(GetHeroList)
@@ -52,6 +45,22 @@ export class HeroState {
       }).catch(err => {
         this.toastr.error(err)
       })
+  }
+
+  @Action(RateHero)
+  async rateHero(ctx: StateContext<HeroStateModel>, action: RateHero) {
+      this.heroService.rateHero(action.heroId, action.rate).subscribe((updatedHero)=>{
+
+        const state = ctx.getState();
+        const heroList = state.heroList.map(hero =>
+          hero.id === updatedHero.id ? updatedHero : hero
+        );
+        ctx.patchState({ heroList });
+
+      },err=>{
+        this.toastr.error(err)
+      });
+
   }
 
 }
