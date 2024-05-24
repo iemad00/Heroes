@@ -41,7 +41,7 @@
             </thead>
             <tbody>
 
-              <tr *ngFor="let hero of filteredHeroes; let i = index" class="link" (click)="heroDetails(hero.id)">
+              <tr *ngFor="let hero of filteredHeroes; let i = index" class="link" (click)="heroDetails(hero)">
                 <td>{{hero.name | uppercase}}</td>
                 <td>
                   <ng-container *ngFor="let power of hero.powers">

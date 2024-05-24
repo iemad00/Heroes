@@ -7,6 +7,9 @@ import { HeroProfileComponent } from 'src/app/components/heroes/hero-profile/her
 import { HeroesListComponent } from 'src/app/components/heroes/heroes-list/heroes-list.component';
 import { StarRatingPipe } from 'src/app/pipes/star-rating.pipe';
 import { HeroDetailsComponent } from 'src/app/components/heroes/hero-profile/hero-details/hero-details.component';
+import { FormArrayInputComponent } from 'src/app/components/shared/form-array-input/form-array-input.component';
+import { InputComponent } from 'src/app/components/shared/input/input.component';
+import { RadioInputComponent } from 'src/app/components/shared/radio-input/radio-input.component';
 
 
 
@@ -21,6 +24,9 @@ import { HeroDetailsComponent } from 'src/app/components/heroes/hero-profile/her
   imports: [
     CommonModule,
     RouterModule.forChild(HeroesLayoutRoutes),
+    InputComponent,
+    FormArrayInputComponent,
+    RadioInputComponent
   ]
 })
 export class HeroesLayoutModule { }

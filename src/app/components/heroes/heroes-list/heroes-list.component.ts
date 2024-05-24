@@ -55,8 +55,9 @@ export class HeroesListComponent implements OnInit {
   }
 
 
-  heroDetails(heroId: number){
+  heroDetails(hero: any){
     this.dialog.open(HeroDetailsComponent, {
+      data: hero,
       width: '400px'
     })
   }
