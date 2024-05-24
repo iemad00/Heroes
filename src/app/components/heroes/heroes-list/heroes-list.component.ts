@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { HeroProfileComponent } from '../hero-profile/hero-profile.component';
 import { HeroDetailsComponent } from '../hero-profile/hero-details/hero-details.component';
 import { RatingDialogComponent } from '../../shared/rating-dialog/rating-dialog.component';
-import { HeroService } from 'src/app/services/hero.service';
 import { IHero, Rate } from 'src/app/interfaces/hero';
 import { AuthService } from 'src/app/services/auth.service';
+import { Store, Select } from '@ngxs/store';
+import { GetHeroList } from 'src/app/states/hero/hero.actions';
+import { HeroState } from 'src/app/states/hero/hero.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-heroes-list',
@@ -19,22 +21,22 @@ export class HeroesListComponent implements OnInit {
 
   filteredHeroes: IHero[] = [];
   heroes: IHero[] = [];
+  @Select(HeroState.heroes) heroes$!: Observable<IHero[]>;
 
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
-    private heroService: HeroService
+    private store: Store
   ){}
 
   ngOnInit(): void {
-    this.heroService.getHeroes().subscribe((res: any) => {
-      this.heroes = res;
+    this.store.dispatch(new GetHeroList());
+
+    this.heroes$.subscribe(heroes => {
+      this.heroes = heroes
       this.filteredHeroes = this.heroes;
       this.sortHeros(this.sortBy);
-      console.log(this.heroes);
-
-    })
-
+    });
   }
 
   search(event: any){
@@ -42,12 +44,13 @@ export class HeroesListComponent implements OnInit {
     this.sortHeros(this.sortBy);
   }
 
-  sortHeros(soryBy: 'name'|'power'): void {
-    this.sortBy = soryBy;
-    this.filteredHeroes = this.filteredHeroes.sort((a, b) => {
+  sortHeros(sortBy: 'name' | 'power'): void {
+    this.sortBy = sortBy;
+    this.filteredHeroes = [...this.filteredHeroes].sort((a, b) => {
       return this.sortBy === 'name' ? a.heroName.localeCompare(b.heroName) : b.powers.length - a.powers.length;
     });
   }
+
 
   hasRated(rates: Rate[]|undefined): boolean{
     const currentUserId = this.authService.currentUserId

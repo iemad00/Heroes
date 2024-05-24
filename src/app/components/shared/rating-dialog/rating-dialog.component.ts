@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
-import { HeroService } from 'src/app/services/hero.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
+import { RateHero } from 'src/app/states/hero/hero.actions';
 
 @Component({
   selector: 'app-rating-dialog',
@@ -20,17 +20,16 @@ export class RatingDialogComponent {
   });
 
   constructor(
-    private heroService: HeroService,
-    private toastr: ToastrService,
+    private store: Store,
+    private dialogRef: MatDialogRef<RatingDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
     ){}
 
 
   submit(){
-    this.heroService.rateHero(this.data!, this.ratingForm.value.stars!).subscribe(()=>{}
-    , err=>{
-      this.toastr.error(err)
-    });
-
+    this.store.dispatch(new RateHero(this.data!, this.ratingForm.value.stars!))
+    .subscribe(()=>{
+      this.dialogRef.close();
+    })
   }
 }

@@ -12,6 +12,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptor } from './services/interceptors/error.interceptor';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
+import { HeroState } from './states/hero/hero.state';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,9 @@ import { ErrorInterceptor } from './services/interceptors/error.interceptor';
     NgbModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    NgxsModule.forRoot([HeroState], {
+      developmentMode: !environment.production
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

@@ -39,7 +39,7 @@ export class AuthService {
 
   signOut(){
     sessionStorage.removeItem('userId');
-    this.router.navigate(['/heroes'])
+    this.router.navigate(['/login'])
   }
 
   get currentHero(){

@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HeroService } from 'src/app/services/hero.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { CreateHero } from 'src/app/states/hero/hero.actions';
 
 @Component({
   selector: 'app-create-hero-form',
@@ -35,6 +37,7 @@ export class CreateHeroFormComponent {
 
   constructor(private heroService: HeroService,
     private router: Router,
+    private store: Store,
     @Optional() private dialogRef: MatDialogRef<CreateHeroFormComponent>,
     private toastr: ToastrService){}
 
@@ -82,7 +85,7 @@ export class CreateHeroFormComponent {
     delete dto.password;
     dto.powers = dto.powers.map((powerObj: { power: any; }) => powerObj.power);
 
-    this.heroService.createHero(dto, credentials as IUser).then(res => {
+    this.store.dispatch(new CreateHero(dto, credentials as IUser)).subscribe(res => {
       this.loading = false;
 
       if(this.dialogRef) // if admin creates the hero
@@ -90,9 +93,8 @@ export class CreateHeroFormComponent {
       else // if user register
         this.router.navigate(['/login'])
 
-    }).catch(err => {
+    }, err => {
       this.loading = false;
-      this.toastr.error(err)
     })
 
 
