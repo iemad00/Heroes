@@ -10,6 +10,7 @@ import { HeroDetailsComponent } from 'src/app/components/heroes/hero-profile/her
 import { FormArrayInputComponent } from 'src/app/components/shared/form-array-input/form-array-input.component';
 import { InputComponent } from 'src/app/components/shared/input/input.component';
 import { RadioInputComponent } from 'src/app/components/shared/radio-input/radio-input.component';
+import { CreateHeroFormComponent } from 'src/app/components/shared/create-hero-form/create-hero-form.component';
 
 
 
@@ -26,7 +27,8 @@ import { RadioInputComponent } from 'src/app/components/shared/radio-input/radio
     RouterModule.forChild(HeroesLayoutRoutes),
     InputComponent,
     FormArrayInputComponent,
-    RadioInputComponent
+    RadioInputComponent,
+    CreateHeroFormComponent,
   ]
 })
 export class HeroesLayoutModule { }

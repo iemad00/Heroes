@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from 'src/app/components/shared/input/input.component';
 import { FormArrayInputComponent } from "../../components/shared/form-array-input/form-array-input.component";
 import { RadioInputComponent } from 'src/app/components/shared/radio-input/radio-input.component';
+import { CreateHeroFormComponent } from 'src/app/components/shared/create-hero-form/create-hero-form.component';
 
 
 
@@ -24,7 +25,8 @@ import { RadioInputComponent } from 'src/app/components/shared/radio-input/radio
         ReactiveFormsModule,
         InputComponent,
         FormArrayInputComponent,
-        RadioInputComponent
+        RadioInputComponent,
+        CreateHeroFormComponent,
     ]
 })
 export class AuthLayoutModule { }

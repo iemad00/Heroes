@@ -20,28 +20,7 @@
         </div>
 
         <div class="card-body px-lg-5 py-lg-5">
-          <form role="form" [formGroup]="signUpForm">
-
-            <app-input [formGroup]="signUpForm" controlName="heroName" placeholder="Hero Name" errorMessage="* Name should be at least 4 letters"></app-input>
-            <app-input [formGroup]="signUpForm" controlName="age" type="number" placeholder="Age" errorMessage="* Enter The Age"></app-input>
-            <app-input [formGroup]="signUpForm" controlName="email" type="email" placeholder="Email Address" errorMessage="* Write a valid email"></app-input>
-
-            <app-radio-input [formGroup]="signUpForm" controlName="gender" label="Gender"></app-radio-input>
-            <app-form-array-input [formArray]="powers" [parentForm]="signUpForm" controlName="powers" placeholder="Power" (add)="addPower()" (remove)="removePower($event)"></app-form-array-input>
-
-            <app-input [formGroup]="signUpForm" controlName="password" type="password" placeholder="Password" errorMessage="* Password is too weak!"></app-input>
-            <app-input [formGroup]="signUpForm" controlName="confirmPassword" type="password" placeholder="Confirm Password" errorMessage="* Passwords don't match!"></app-input>
-
-
-            <div class="text-center">
-              <button type="button" class="btn btn-primary mt-4" (click)="signUp()"
-                    [disabled]="!isFormValid() || loading">
-                    <ng-container *ngIf="!loading">Create account</ng-container>
-                    <i class="fa fa-spin fa-spinner" *ngIf="loading"></i>
-              </button>
-            </div>
-          </form>
-
+          <app-create-hero-form></app-create-hero-form>
         </div>
       </div>
 
