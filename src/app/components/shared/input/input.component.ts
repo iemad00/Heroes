@@ -13,7 +13,8 @@ export class InputComponent {
   @Input() formGroup?: FormGroup;
   @Input() controlName?: string;
   @Input() type: string = 'text';
-  @Input() value: string = '';
+  @Input() value?: string;
+  @Input() label?: string;
   @Input() placeholder: string = '';
   @Input() errorMessage: string = '';
 }

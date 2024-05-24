@@ -8,6 +8,7 @@
 </div>
 
 <div *ngIf="!formGroup" class="form-group mb-3">
+  <label class="ml-1" *ngIf="label">{{label}}</label>
   <div class="input-group input-group-alternative">
     <input class="form-control pl-4" [value]="value" disabled>
   </div>
