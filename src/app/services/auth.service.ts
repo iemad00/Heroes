@@ -49,8 +49,20 @@ export class AuthService {
   }
 
   get currentAdmin(){
-    return this.http.get(`${this.url}admin?userId=${sessionStorage.getItem('userId')}`).pipe(hero => {
+    return this.http.get(`${this.url}admin?userId=${sessionStorage.getItem('userId')}`).pipe(admin => {
+      return admin;
+    })
+  }
+
+  getHero(heroId: string){
+    return this.http.get(`${this.url}hero?userId=${heroId}`).pipe(hero => {
       return hero;
+    })
+  }
+
+  getAdmin(adminId: string){
+    return this.http.get(`${this.url}admin?userId=${adminId}`).pipe(admin => {
+      return admin;
     })
   }
 

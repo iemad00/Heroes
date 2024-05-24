@@ -43,13 +43,13 @@
             <tbody>
 
               <tr *ngFor="let hero of filteredHeroes; let i = index">
-                <td class="link" (click)="heroDetails(hero)">{{hero.heroName | uppercase}}</td>
+                <td class="link" (click)="heroDetails(hero.userId)">{{hero.heroName | uppercase}}</td>
                 <td>
                   <ng-container *ngFor="let power of hero.powers">
                     <span class="badge badge-primary mr-1 power-badge">{{ power }}</span>
                   </ng-container>
                 </td>
-                <td [innerHTML]="avgRates(hero.rates) | starRating"></td>
+                <td [innerHTML]="heroService.avgRates(hero.rates) | starRating"></td>
 
 
                 <td *appHasPermission="'hero'">

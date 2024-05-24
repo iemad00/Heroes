@@ -8,6 +8,8 @@ import { Store, Select } from '@ngxs/store';
 import { GetHeroList } from 'src/app/states/hero/hero.actions';
 import { HeroState } from 'src/app/states/hero/hero.state';
 import { Observable } from 'rxjs';
+import { HeroService } from 'src/app/services/hero.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-heroes-list',
@@ -26,6 +28,8 @@ export class HeroesListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
+    public heroService: HeroService,
+    private toastr: ToastrService,
     private store: Store
   ){}
 
@@ -63,20 +67,15 @@ export class HeroesListComponent implements OnInit {
     return false;
   }
 
-  avgRates(rates: Rate[] | undefined): number {
-    if (!rates || rates.length === 0)
-      return 0;
+  heroDetails(heroId: string){
+    if(!this.authService.isAuthenticated()){
+      this.toastr.error("You should login to view details")
+      return
+    }
 
-
-    const total = rates.reduce((sum, rate) => sum + parseFloat(rate.rate), 0);
-    return total / rates.length;
-  }
-
-
-  heroDetails(hero: any){
-    const heroDetails = {...hero, rate:this.avgRates(hero.rates)}
+    // const heroDetails = {...hero, rate:this.heroService.avgRates(hero.rates)}
     this.dialog.open(HeroDetailsComponent, {
-      data: heroDetails,
+      data: heroId,
       width: '400px'
     })
   }

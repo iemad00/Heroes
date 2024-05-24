@@ -76,6 +76,14 @@ export class HeroService {
     );
   }
 
+  avgRates(rates: Rate[] | undefined): number {
+    if (!rates || rates.length === 0)
+      return 0;
+
+    const total = rates.reduce((sum, rate) => sum + parseFloat(rate.rate), 0);
+    return total / rates.length;
+  }
+
   getHeroById(heroId: number): Observable<any>{
     return this.http.get(`${this.url}hero?id=${heroId}`).pipe(res => {
       return res;
