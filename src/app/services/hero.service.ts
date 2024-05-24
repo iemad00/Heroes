@@ -34,11 +34,18 @@ export class HeroService {
     }
   }
 
+  // Assume it's a secure endpoint, returns only what should appear for all users :)
   getHeroes(){
-    return this.http.get(`${this.url}hero`).pipe(res => {
-      return res;
-    })
+    return this.http.get<IHero[]>(`${this.url}hero`).pipe(
+      map((heroes: IHero[]) => heroes.map(hero => ({
+        heroName: hero.heroName,
+        userId: hero.userId,
+        powers: hero.powers,
+        rates: hero.rates
+      })))
+    );
   }
+
 
   rateHero(heroId: string, rate: number): Observable<any> {
     const raterId = sessionStorage.getItem('userId');
