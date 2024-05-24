@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
 
 
   logout(){
-    this.authService.signOut();
+    if(confirm('are you sure you want to logout?'))
+      this.authService.signOut();
   }
 }

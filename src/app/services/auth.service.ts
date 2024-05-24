@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IHero } from '../interfaces/hero';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, switchMap, throwError } from 'rxjs';
 import { IUser } from '../interfaces/user';
@@ -41,6 +40,33 @@ export class AuthService {
   signOut(){
     sessionStorage.removeItem('userId');
     this.router.navigate(['/heroes'])
+  }
+
+  get currentHero(){
+    return this.http.get(`${this.url}hero?userId=${sessionStorage.getItem('userId')}`).pipe(hero => {
+      return hero;
+    })
+  }
+
+  get currentAdmin(){
+    return this.http.get(`${this.url}admin?userId=${sessionStorage.getItem('userId')}`).pipe(hero => {
+      return hero;
+    })
+  }
+
+  isAuthenticated(): boolean {
+    return sessionStorage.getItem('userId') != null;
+  }
+
+  get currentUserId(): string|null {
+    return sessionStorage.getItem('userId');
+  }
+  async isAuthorized(role: string): Promise<boolean> {
+    if(!this.isAuthenticated())
+      return false;
+
+    const user: any = await this.http.get(`${this.url}user?id=${sessionStorage.getItem('userId')}`).toPromise()
+    return user[0]?.role?.includes('admin') || user[0]?.role?.includes(role);
   }
 
 }

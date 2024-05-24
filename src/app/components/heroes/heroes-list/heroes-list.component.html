@@ -4,7 +4,7 @@
 
 
   <div class="row mb-2 d-flex">
-    <a  class="btn btn-info mb-2 ml-3" (click)="addHero()">Add Hero</a>
+    <a *appHasPermission="'admin'" class="btn btn-info mb-2 ml-3" (click)="addHero()">Add Hero</a>
 
     <div class="col-sm-12 col-md-8 col-lg-6 input-group input-group-alternative ml-auto">
       <input (keyup)="search($event)" class="form-control" id="search" placeholder="Search for a hero" type="text">
@@ -43,16 +43,19 @@
             <tbody>
 
               <tr *ngFor="let hero of filteredHeroes; let i = index">
-                <td class="link" (click)="heroDetails(hero)">{{hero.name | uppercase}}</td>
+                <td class="link" (click)="heroDetails(hero)">{{hero.heroName | uppercase}}</td>
                 <td>
                   <ng-container *ngFor="let power of hero.powers">
                     <span class="badge badge-primary mr-1 power-badge">{{ power }}</span>
                   </ng-container>
                 </td>
-                <td [innerHTML]="hero.rate | starRating"></td>
+                <td [innerHTML]="avgRates(hero.rates) | starRating"></td>
 
 
-                <td><button class="btn btn-sm btn-primary" (click)="rate(hero.id)">Rate</button></td>
+                <td *appHasPermission="'hero'">
+                  <button *ngIf="!hasRated(hero?.rates)" class="btn btn-sm btn-primary" (click)="rate(hero.userId)">Rate</button>
+                  <button *ngIf="hasRated(hero?.rates)" class="btn btn-sm btn-success" disabled>Rated</button>
+                </td>
 
               </tr>
 

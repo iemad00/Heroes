@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { IHero } from '../interfaces/hero';
+import { Observable, map, switchMap, throwError } from 'rxjs';
 import { IUser } from '../interfaces/user';
+import { ToastrService } from 'ngx-toastr';
+import { IHero, Rate } from '../interfaces/hero';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { IUser } from '../interfaces/user';
 export class HeroService {
   private url = 'http://localhost:3000/'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastr: ToastrService) { }
 
 
   async createHero(hero: IHero, credentials: IUser): Promise<any> {
@@ -25,6 +26,7 @@ export class HeroService {
       const userRes: any = await this.http.post(`${this.url}user`, credentials).toPromise();
       hero.userId = userRes.id;
       const heroRes = await this.http.post(`${this.url}hero`, hero).toPromise();
+      this.toastr.success('Hero Has Been Created Successfully!')
       return Promise.resolve(heroRes);
 
     } catch (error) {
@@ -32,8 +34,49 @@ export class HeroService {
     }
   }
 
+  getHeroes(){
+    return this.http.get(`${this.url}hero`).pipe(res => {
+      return res;
+    })
+  }
 
-  getHeroById(heroId: number){
+  rateHero(heroId: string, rate: number): Observable<any> {
+    const raterId = sessionStorage.getItem('userId');
+    if (!raterId) {
+      return throwError('User not authenticated');
+    }
+
+    return this.http.get(`${this.url}hero?userId=${heroId}`).pipe(
+      switchMap((heroes: any) => {
+        if (heroes.length === 0) {
+          return throwError('Hero not found');
+        }
+
+        const hero = heroes[0];
+
+        if (hero.rates?.some((r: Rate) => r.raterId === raterId)) {
+          return throwError('You have rated this hero already!');
+        }
+
+        const newRate = {
+          raterId,
+          rate: rate.toString()
+        };
+
+        hero.rates = hero.rates || [];
+        hero.rates.push(newRate);
+
+        return this.http.put(`${this.url}hero/${hero.id}`, hero).pipe(
+          map(() => {
+            this.toastr.success('Hero rated successfully');
+            return hero;
+          }),
+        );
+      }),
+    );
+  }
+
+  getHeroById(heroId: number): Observable<any>{
     return this.http.get(`${this.url}hero?id=${heroId}`).pipe(res => {
       return res;
     })

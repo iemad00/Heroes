@@ -11,14 +11,19 @@
   <div>
 
     <!-- Add Hero -->
-    <app-create-hero-form *ngIf="!hero"></app-create-hero-form>
+    <app-create-hero-form *ngIf="!hero && !admin"></app-create-hero-form>
 
     <!-- Hero Details  -->
     <ng-container *ngIf="hero">
-      <app-input value="{{hero.name}}" label="Hero Name"></app-input>
-      <app-input value="Male" label="Gender"></app-input>
-      <app-input value="{{hero.powers}}" label="Power"></app-input>
-      <app-input value="{{hero.rate}} / 5" label="Rate"></app-input>
+      <app-input [value]="hero.heroName" label="Hero Name"></app-input>
+      <app-input [value]="hero.gender=='m'? 'Male': 'Female'" label="Gender"></app-input>
+      <app-input [value]="hero.powers" label="Power"></app-input>
+      <app-input [value]="hero.rate?hero.rate:0 + ' / ' + 5" label="Rate"></app-input>
+    </ng-container>
+
+    <!-- Admin Details  -->
+    <ng-container *ngIf="admin">
+      <app-input [value]="admin.adminName" label="Admin Name"></app-input>
     </ng-container>
 
   </div>

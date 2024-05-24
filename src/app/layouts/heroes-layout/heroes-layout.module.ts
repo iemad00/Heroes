@@ -10,8 +10,9 @@ import { HeroDetailsComponent } from 'src/app/components/heroes/hero-profile/her
 import { FormArrayInputComponent } from 'src/app/components/shared/form-array-input/form-array-input.component';
 import { InputComponent } from 'src/app/components/shared/input/input.component';
 import { RadioInputComponent } from 'src/app/components/shared/radio-input/radio-input.component';
-import { CreateHeroFormComponent } from 'src/app/components/auth/create-hero-form/create-hero-form.component';
+import { CreateHeroFormComponent } from 'src/app/components/shared/create-hero-form/create-hero-form.component';
 import { RatingDialogComponent } from 'src/app/components/shared/rating-dialog/rating-dialog.component';
+import { HasPermissionDirective } from 'src/app/directives/has-permission.directive';
 
 
 
@@ -21,7 +22,8 @@ import { RatingDialogComponent } from 'src/app/components/shared/rating-dialog/r
     HeroesListComponent,
     HeroProfileComponent,
     HeroDetailsComponent,
-    StarRatingPipe
+    StarRatingPipe,
+    HasPermissionDirective,
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { RatingDialogComponent } from 'src/app/components/shared/rating-dialog/r
     FormArrayInputComponent,
     RadioInputComponent,
     CreateHeroFormComponent,
-    RatingDialogComponent
+    RatingDialogComponent,
+
   ]
 })
 export class HeroesLayoutModule { }
