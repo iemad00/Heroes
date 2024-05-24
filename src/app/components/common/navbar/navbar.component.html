@@ -37,7 +37,7 @@
               </a>
           </li>
 
-          <a class="nav-link ml-4" (click)="logout()">Logout</a>
+          <a class="nav-link ml-4" *ngIf="authService.isAuthenticated()" (click)="logout()">Logout</a>
           <hr>
       </ul>
 
