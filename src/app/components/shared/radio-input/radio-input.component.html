@@ -1,0 +1,13 @@
+<div class="input-box col-lg-12">
+  <label class="label-text">{{label}}</label>
+  <div class="form-group align-items-center" [formGroup]="formGroup">
+      <div class="custom-control custom-radio mb-1">
+          <input type="radio" class="custom-control-input" id="maleRadioCheck" name="gender" value="m" formControlName="gender">
+          <label class="custom-control-label custom--control-label" for="maleRadioCheck">Male</label>
+      </div>
+      <div class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input" id="femaleRadioCheck" name="gender" value="f" required formControlName="gender">
+          <label class="custom-control-label custom--control-label" for="femaleRadioCheck">Female</label>
+      </div>
+  </div>
+</div>
