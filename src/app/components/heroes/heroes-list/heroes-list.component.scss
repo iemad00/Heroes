@@ -5,3 +5,16 @@
 .power-badge{
   font-size: .7rem;
 }
+
+
+@media(min-width: 1200px) {
+  .container-fluid{
+    width: 70% !important;
+  }
+}
+
+@media(min-width: 1800px) {
+  .container-fluid{
+    width: 50% !important;
+  }
+}

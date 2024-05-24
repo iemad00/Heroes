@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-heroes-list',
@@ -6,15 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./heroes-list.component.scss']
 })
 
-export class HeroesListComponent {
+export class HeroesListComponent implements OnInit {
 
   sortBy: 'name'|'power' = 'name';
+  filteredHeroes: any[] = [];
 
   heroes = [
     {
-    name: "Emad",
-    powers: ['Angular', 'Nodejs', 'Python'],
-    rate: 3.5
+      name: "Emad",
+      powers: ['Angular', 'Nodejs', 'Python'],
+      rate: 3.5
     },
     {
       name: "Super Man",
@@ -29,9 +30,19 @@ export class HeroesListComponent {
     }
   ];
 
+  ngOnInit(): void {
+    this.filteredHeroes = this.heroes;
+    this.sortHeros(this.sortBy);
+  }
 
-  get filteredHeroes() {
-    return this.heroes.sort((a, b) => {
+  search(event: any){
+    this.filteredHeroes = this.heroes.filter(hero => hero.name.toLowerCase().includes(event.target.value))
+    this.sortHeros(this.sortBy);
+  }
+
+  sortHeros(soryBy: 'name'|'power'): void {
+    this.sortBy = soryBy;
+    this.filteredHeroes = this.filteredHeroes.sort((a, b) => {
       return this.sortBy === 'name' ? a.name.localeCompare(b.name) : b.powers.length - a.powers.length;
     });
   }

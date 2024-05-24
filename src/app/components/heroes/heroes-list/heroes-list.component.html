@@ -1,9 +1,4 @@
 
-<div class="header bg-gradient-primary pb-9 pt-5 pt-md-8">
-  <div class="container-fluid">
-
-  </div>
-</div>
 
 <div class="container-fluid mt--9">
 
@@ -12,7 +7,7 @@
     <a  class="btn btn-info mb-2 ml-3">Add Hero</a>
 
     <div class="col-sm-12 col-md-8 col-lg-6 input-group input-group-alternative ml-auto">
-      <input class="form-control" id="search" placeholder="Search for a hero" type="text">
+      <input (keyup)="search($event)" class="form-control" id="search" placeholder="Search for a hero" type="text">
     </div>
 
   </div>
@@ -26,10 +21,10 @@
 
         <div class="btn-group btn-group-toggle mr-3 ml-auto" data-toggle="buttons">
           <label class="btn btn-secondary" [ngClass]="{'active': sortBy=='name'}">
-            <input type="radio" name="options" id="sort-by-name" autocomplete="off" (click)="sortBy = 'name'"> Sort By Name
+            <input type="radio" name="options" id="sort-by-name" autocomplete="off" (click)="sortHeros('name')"> Sort By Name
           </label>
           <label class="btn btn-secondary" [ngClass]="{'active': sortBy=='power'}">
-            <input type="radio" name="options" id="sort-by-power" autocomplete="off" (click)="sortBy = 'power'"> Sort By Power
+            <input type="radio" name="options" id="sort-by-power" autocomplete="off" (click)="sortHeros('power')"> Sort By Power
           </label>
         </div>
 
