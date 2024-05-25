@@ -33,12 +33,12 @@ describe('HeroService', () => {
   describe('#getHeroes', () => {
     it('should return heroes with specific fields', () => {
       const mockHeroes: IHero[] = [
-        { heroName: 'Superman', userId: '1', powers: ['fly'], rates: [] }
+        { id: '1', heroName: 'Superman', userId: '1', powers: ['fly'], rates: [] }
       ];
 
       service.getHeroes().subscribe(heroes => {
         expect(heroes).toEqual([
-          { heroName: 'Superman', userId: '1', powers: ['fly'], rates: [] }
+          { id: '1', heroName: 'Superman', userId: '1', powers: ['fly'], rates: [] }
         ]);
       });
 

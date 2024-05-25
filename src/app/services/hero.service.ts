@@ -39,6 +39,7 @@ export class HeroService {
   getHeroes(){
     return this.http.get<IHero[]>(`${this.url}hero`).pipe(
       map((heroes: IHero[]) => heroes.map(hero => ({
+        id: hero.id,
         heroName: hero.heroName,
         userId: hero.userId,
         powers: hero.powers,
