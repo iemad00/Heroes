@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IAdmin } from 'src/app/interfaces/admin';
+import { IUser } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,29 +9,29 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./hero-profile.component.scss']
 })
 export class HeroProfileComponent implements OnInit {
+  hero: IUser|undefined;
+  admin: IAdmin|undefined;
 
-
-  hero = {}
-  admin = {}
-
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.getHero()
+    this.getHero();
   }
 
-  getHero(){
+  getHero() {
     this.authService.currentHero.subscribe((res: any) => {
-      this.hero = res[0];
-      if(!this.hero)
-        this.getAdmin()
-    })
+      if (res.length === 0)
+        this.getAdmin();
+      else
+        this.hero = res[0];
+
+    });
   }
 
-  getAdmin(){
+  getAdmin() {
     this.authService.currentAdmin.subscribe((res: any) => {
-      this.admin = res[0]
-    })
+      if (res.length > 0)
+        this.admin = res[0];
+    });
   }
-
 }
