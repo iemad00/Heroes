@@ -11,7 +11,7 @@
 
 
   <div class="text-center">
-    <button type="button" class="btn btn-primary mt-4" (click)="signUp()"
+    <button type="button" class="btn btn-primary mt-4" (click)="submit()"
           [disabled]="!isFormValid() || loading">
           <ng-container *ngIf="!loading">Create account</ng-container>
           <i class="fa fa-spin fa-spinner" *ngIf="loading"></i>
