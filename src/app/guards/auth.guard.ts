@@ -1,36 +1,25 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../services/auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate {
-  constructor(
-    private authService: AuthService,
-    private toastr: ToastrService,
-    private router: Router
-  ) {}
+export const AuthGuard: CanActivateFn = (route, state) => {
+  const authService = inject(AuthService);
+  const toastr = inject(ToastrService);
+  const router = inject(Router);
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
-    const requiresAuth = next.data['requiresAuth'];
+  const requiresAuth = route.data['requiresAuth'];
 
-    if (requiresAuth && !this.authService.isAuthenticated()) {
-      this.router.navigate(['/login']);
-      this.toastr.error("Unauthorized!");
-      return false;
-    }
-
-    if (!requiresAuth && this.authService.isAuthenticated()) {
-      this.router.navigate(['/heroes']);
-      return false;
-    }
-
-    return true;
+  if (requiresAuth && !authService.isAuthenticated()) {
+    router.navigate(['/login']);
+    toastr.error("Unauthorized!");
+    return false;
   }
 
-}
+  if (!requiresAuth && authService.isAuthenticated()) {
+    router.navigate(['/heroes']);
+    return false;
+  }
+
+  return true;
+};
