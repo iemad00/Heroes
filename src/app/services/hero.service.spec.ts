@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { HeroService } from './hero.service';
 import { environment } from 'src/environments/environment';
-import { Rate } from '../interfaces/hero';
+import { IHero, Rate } from '../interfaces/hero';
 
 describe('HeroService', () => {
   let service: HeroService;
@@ -30,6 +30,73 @@ describe('HeroService', () => {
     httpMock.verify();
   });
 
+  describe('#getHeroes', () => {
+    it('should return heroes with specific fields', () => {
+      const mockHeroes: IHero[] = [
+        { heroName: 'Superman', userId: '1', powers: ['fly'], rates: [] }
+      ];
+
+      service.getHeroes().subscribe(heroes => {
+        expect(heroes).toEqual([
+          { heroName: 'Superman', userId: '1', powers: ['fly'], rates: [] }
+        ]);
+      });
+
+      const req = httpMock.expectOne(`${environment.apiUrl}hero`);
+      expect(req.request.method).toBe('GET');
+      req.flush(mockHeroes);
+    });
+  });
+
+  describe('#rateHero', () => {
+    it('should rate a hero successfully', () => {
+      const heroId = '1';
+      const rate = 5;
+      const raterId = '2';
+      sessionStorage.setItem('userId', raterId);
+      const mockHeroesResponse = [{ id: heroId, heroName: 'Superman', userId: '1', powers: ['fly'], rates: [] }];
+      const mockHeroResponse = { ...mockHeroesResponse[0], rates: [{ raterId, rate: rate.toString() }] };
+
+      service.rateHero(heroId, rate).subscribe(hero => {
+        expect(hero).toEqual(mockHeroResponse);
+        expect(toastrSpy.success).toHaveBeenCalledWith('Hero rated successfully');
+      });
+
+      const reqGet = httpMock.expectOne(`${environment.apiUrl}hero?userId=${heroId}`);
+      expect(reqGet.request.method).toBe('GET');
+      reqGet.flush(mockHeroesResponse);
+
+      const reqPut = httpMock.expectOne(`${environment.apiUrl}hero/${heroId}`);
+      expect(reqPut.request.method).toBe('PUT');
+      reqPut.flush(mockHeroResponse);
+    });
+
+    it('should return error if user is not authenticated', () => {
+      sessionStorage.removeItem('userId');
+
+      service.rateHero('1', 5).subscribe({
+        error: (error) => {
+          expect(error).toBe('User not authenticated');
+        }
+      });
+
+      httpMock.expectNone(`${environment.apiUrl}hero?userId=1`);
+    });
+
+    it('should return error if user rates themselves', () => {
+      const heroId = '1';
+      const rate = 5;
+      sessionStorage.setItem('userId', heroId);
+
+      service.rateHero(heroId, rate).subscribe({
+        error: (error) => {
+          expect(error).toBe('You can not rate yourself!');
+        }
+      });
+
+      httpMock.expectNone(`${environment.apiUrl}hero?userId=1`);
+    });
+  });
 
   describe('#avgRates', () => {
     it('should return the average rate', () => {
