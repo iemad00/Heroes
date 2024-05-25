@@ -8,32 +8,36 @@ import { HeroService } from 'src/app/services/hero.service';
   templateUrl: './hero-details.component.html',
   styleUrls: ['./hero-details.component.scss']
 })
-export class HeroDetailsComponent {
+export class HeroDetailsComponent implements OnInit {
 
   @Input() hero?: any;
   @Input() admin?: any;
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public userId: string,
-    public heroSerivce: HeroService,
+    public heroService: HeroService,
     private authService: AuthService
-  ){
-    if (userId)
-    this.getHero()
+  ) {}
+
+  ngOnInit(): void {
+    if (this.userId) {
+      this.getHero();
+    }
   }
 
-  getHero(){
+  getHero() {
     this.authService.getHero(this.userId).subscribe((res: any) => {
-      this.hero = res[0];
-      if(!this.hero)
-        this.getAdmin()
-    })
+      if(res[0])
+        this.hero = res[0];
+      else
+        this.getAdmin();
+    });
   }
 
-  getAdmin(){
+  getAdmin() {
     this.authService.getAdmin(this.userId).subscribe((res: any) => {
-      this.admin = res[0]
-    })
+      if(res[0])
+        this.admin = res[0];
+    });
   }
-
 }
