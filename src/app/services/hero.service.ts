@@ -49,9 +49,12 @@ export class HeroService {
 
   rateHero(heroId: string, rate: number): Observable<any> {
     const raterId = sessionStorage.getItem('userId');
-    if (!raterId) {
+    if (!raterId)
       return throwError('User not authenticated');
-    }
+
+    if(heroId == raterId)
+      return throwError('You can not rate yourself!');
+
 
     return this.http.get(`${this.url}hero?userId=${heroId}`).pipe(
       switchMap((heroes: any) => {

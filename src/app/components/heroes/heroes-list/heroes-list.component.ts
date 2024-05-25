@@ -27,7 +27,7 @@ export class HeroesListComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private authService: AuthService,
+    public authService: AuthService,
     public heroService: HeroService,
     private toastr: ToastrService,
     private store: Store

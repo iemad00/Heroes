@@ -37,7 +37,7 @@
                 <th scope="col">Here Name</th>
                 <th scope="col">Powers</th>
                 <th scope="col">Rate</th>
-                <th scope="col"></th>
+                <th *appHasPermission="'hero'" scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -53,7 +53,9 @@
 
 
                 <td *appHasPermission="'hero'">
-                  <button *ngIf="!hasRated(hero?.rates)" class="btn btn-sm btn-primary" (click)="rate(hero.userId)">Rate</button>
+                  <button *ngIf="!hasRated(hero?.rates)"
+                  class="btn btn-sm btn-primary" [disabled]="authService.currentUserId == hero.userId" (click)="rate(hero.userId)">Rate</button>
+
                   <button *ngIf="hasRated(hero?.rates)" class="btn btn-sm btn-success" disabled>Rated</button>
                 </td>
 
