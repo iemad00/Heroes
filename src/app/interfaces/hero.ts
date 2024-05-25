@@ -4,12 +4,12 @@ export interface Rate {
 }
 
 export interface IHero {
-  id: string;
+  id?: string;
   heroName: string;
-  age: string;
-  gender: string;
+  age?: string;
+  gender?: string;
   powers: string[];
-  userId: string;
+  userId?: string;
   rates?: Rate[];
   averageRate?: number;
 }
