@@ -80,7 +80,6 @@ export class HeroesListComponent implements OnInit {
       return
     }
 
-    // const heroDetails = {...hero, rate:this.heroService.avgRates(hero.rates)}
     this.dialog.open(HeroDetailsComponent, {
       data: heroId,
       width: '400px'

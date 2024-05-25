@@ -43,7 +43,7 @@
             <tbody>
 
               <tr *ngFor="let hero of filteredHeroes; let i = index">
-                <td class="link" (click)="heroDetails(hero.userId)">{{hero.heroName | uppercase}}</td>
+                <td class="link" (click)="heroDetails(hero.userId!)">{{hero.heroName | uppercase}}</td>
                 <td>
                   <ng-container *ngFor="let power of hero.powers">
                     <span class="badge badge-primary mr-1 power-badge">{{ power }}</span>
@@ -54,7 +54,7 @@
 
                 <td *appHasPermission="'hero'">
                   <button *ngIf="!hasRated(hero?.rates)"
-                  class="btn btn-sm btn-primary" [disabled]="authService.currentUserId == hero.userId" (click)="rate(hero.userId)">Rate</button>
+                  class="btn btn-sm btn-primary" [disabled]="authService.currentUserId == hero.userId" (click)="rate(hero.userId!)">Rate</button>
 
                   <button *ngIf="hasRated(hero?.rates)" class="btn btn-sm btn-success" disabled>Rated</button>
                 </td>
