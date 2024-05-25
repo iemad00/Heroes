@@ -11,6 +11,54 @@
       "email": "a@gmail.com",
       "password": "Aa123123.",
       "role": "hero"
+    },
+    {
+      "id": "4551",
+      "email": "s@gmail.com",
+      "password": "Aa112233.",
+      "role": "hero"
+    },
+    {
+      "id": "e065",
+      "email": "aa@hotmail.com",
+      "password": "Aa112233.",
+      "role": "hero"
+    },
+    {
+      "id": "d9a8",
+      "email": "ddd@gmail.com",
+      "password": "Aa112233.",
+      "role": "hero"
+    },
+    {
+      "id": "a3e6",
+      "email": "22a961@gmail.com",
+      "password": "Aa112233.",
+      "role": "hero"
+    },
+    {
+      "id": "b8ef",
+      "email": "fafa@hotmail.com",
+      "password": "Aa112233.",
+      "role": "hero"
+    },
+    {
+      "id": "ef80",
+      "email": "adaaa@gmail.com",
+      "password": "Aa112233.",
+      "role": "hero"
+    },
+    {
+      "id": "4146",
+      "email": "aaawda@gmail.com",
+      "password": "Aa112233.",
+      "role": "hero"
+    },
+    {
+      "id": "2ff3",
+      "email": "a@me.com",
+      "password": "Aa112233.",
+      "role": "hero"
     }
   ],
   "hero": [
@@ -20,11 +68,158 @@
       "age": "28",
       "gender": "m",
       "powers": [
-        "Fly",
+        "Flying",
         "Angular",
         "Java"
       ],
-      "userId": "c7e0"
+      "userId": "c7e0",
+      "rates": [
+        {
+          "raterId": "1234",
+          "rate": "2"
+        }
+      ]
+    },
+    {
+      "id": "815c",
+      "heroName": "Spiderman",
+      "age": "22",
+      "gender": "m",
+      "powers": [
+        "Web-Slinging",
+        "Python"
+      ],
+      "userId": "4551",
+      "rates": [
+        {
+          "raterId": "1234",
+          "rate": "3"
+        }
+      ]
+    },
+    {
+      "id": "976d",
+      "heroName": "Iron Man",
+      "age": "35",
+      "gender": "m",
+      "powers": [
+        "Genius Intelligence",
+        "React",
+        "C++"
+      ],
+      "userId": "e065",
+      "rates": [
+        {
+          "raterId": "4551",
+          "rate": "2"
+        }
+      ]
+    },
+    {
+      "id": "2a30",
+      "heroName": "Thor",
+      "age": "1500",
+      "gender": "m",
+      "powers": [
+        "God of Thunder",
+        "Kotlin"
+      ],
+      "userId": "d9a8",
+      "rates": [
+        {
+          "raterId": "1234",
+          "rate": "5"
+        }
+      ]
+    },
+    {
+      "id": "551d",
+      "heroName": "Hulk",
+      "age": "45",
+      "gender": "m",
+      "powers": [
+        "Super Strength",
+        "Node.js"
+      ],
+      "userId": "a3e6",
+      "rates": [
+        {
+          "raterId": "1234",
+          "rate": "2"
+        }
+      ]
+    },
+    {
+      "id": "2e98",
+      "heroName": "Black Widow",
+      "age": "32",
+      "gender": "f",
+      "powers": [
+        "Martial Arts",
+        "JavaScript"
+      ],
+      "userId": "b8ef",
+      "rates": [
+        {
+          "raterId": "1234",
+          "rate": "2"
+        },
+        {
+          "raterId": "4551",
+          "rate": "4"
+        }
+      ]
+    },
+    {
+      "id": "3315",
+      "heroName": "Captain America",
+      "age": "101",
+      "gender": "m",
+      "powers": [
+        "Super Soldier",
+        "TypeScript"
+      ],
+      "userId": "ef80",
+      "rates": [
+        {
+          "raterId": "4551",
+          "rate": "3"
+        }
+      ]
+    },
+    {
+      "id": "c962",
+      "heroName": "Wonder Woman",
+      "age": "800",
+      "gender": "f",
+      "powers": [
+        "Super Strength",
+        "Java"
+      ],
+      "userId": "4146",
+      "rates": []
+    },
+    {
+      "id": "ef2d",
+      "heroName": "Flash",
+      "age": "25",
+      "gender": "m",
+      "powers": [
+        "Super Speed",
+        "Python"
+      ],
+      "userId": "2ff3",
+      "rates": [
+        {
+          "raterId": "1234",
+          "rate": "3"
+        }
+      ]
+    }
+  ],
+  "admin": [
+    {
+      "adminName": "Emad Abalawi"
     }
   ]
 }
