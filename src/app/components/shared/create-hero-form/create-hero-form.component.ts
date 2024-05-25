@@ -50,8 +50,9 @@ export class CreateHeroFormComponent {
   }
 
   isPasswordMatch() {
-    return !(this.signUpForm.controls['confirmPassword'].touched && this.signUpForm.value.confirmPassword !== this.signUpForm.value.password);
+    return this.signUpForm.controls['password'].value === this.signUpForm.controls['confirmPassword'].value;
   }
+
 
   createPower(): FormGroup {
     return new FormGroup({
@@ -71,7 +72,7 @@ export class CreateHeroFormComponent {
     return this.signUpForm.valid && (this.signUpForm.value.password == this.signUpForm.value.confirmPassword)
   }
 
-  signUp(){
+  submit(){
     this.loading = true;
     const dto = { ...this.signUpForm.value }
     const credentials = {
