@@ -43,8 +43,15 @@ export class HeroesListComponent implements OnInit {
     });
   }
 
-  search(event: any){
-    this.filteredHeroes = this.heroes.filter(hero => hero.heroName.toLowerCase().includes(event.target.value))
+  search(event: any): void {
+    const searchValue = event.target.value.toLowerCase();
+
+    this.filteredHeroes = this.heroes.filter(hero => {
+      const heroNameMatch = hero.heroName.toLowerCase().includes(searchValue);
+      const powersMatch = hero.powers.some(power => power.toLowerCase().includes(searchValue));
+      return heroNameMatch || powersMatch;
+    });
+
     this.sortHeros(this.sortBy);
   }
 
