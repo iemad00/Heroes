@@ -4,12 +4,13 @@ import { Observable, map, switchMap, throwError } from 'rxjs';
 import { IUser } from '../interfaces/user';
 import { ToastrService } from 'ngx-toastr';
 import { IHero, Rate } from '../interfaces/hero';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
-  private url = 'http://localhost:3000/'
+  private url = environment.apiUrl;
 
   constructor(private http: HttpClient, private toastr: ToastrService) { }
 
