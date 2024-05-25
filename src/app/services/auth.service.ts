@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, switchMap } from 'rxjs';
 import { IUser } from '../interfaces/user';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -55,16 +55,32 @@ export class AuthService {
     })
   }
 
-  getHero(heroId: string){
-    return this.http.get(`${this.url}hero?userId=${heroId}`).pipe(hero => {
-      return hero;
-    })
-  }
+  getHero(userId: string){
+    return this.http.get(`${this.url}hero?userId=${userId}`).pipe(
+      switchMap((heroes: any) => {
+        const hero = heroes[0];
+        return this.http.get(`${this.url}user/${userId}`).pipe(
+          map((user: any) => {
+            return {
+              ...hero,
+              email: user.email
+            };
+          }));
+      }));
+    }
 
-  getAdmin(adminId: string){
-    return this.http.get(`${this.url}admin?userId=${adminId}`).pipe(admin => {
-      return admin;
-    })
+  getAdmin(userId: string){
+    return this.http.get(`${this.url}admin?userId=${userId}`).pipe(
+      switchMap((heroes: any) => {
+        const hero = heroes[0];
+        return this.http.get(`${this.url}user/${userId}`).pipe(
+          map((user: any) => {
+            return {
+              ...hero,
+              email: user.email
+            };
+          }));
+      }));
   }
 
   isAuthenticated(): boolean {

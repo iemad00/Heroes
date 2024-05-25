@@ -1,69 +1,66 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeroDetailsComponent } from './hero-details.component';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { HeroService } from 'src/app/services/hero.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('HeroDetailsComponent', () => {
   let component: HeroDetailsComponent;
   let fixture: ComponentFixture<HeroDetailsComponent>;
-  let authService: jasmine.SpyObj<AuthService>;
-  let heroService: jasmine.SpyObj<HeroService>;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
+  let heroServiceSpy: jasmine.SpyObj<HeroService>;
 
   beforeEach(async () => {
-    const authServiceSpy = jasmine.createSpyObj('AuthService', ['getHero', 'getAdmin']);
-    const heroServiceSpy = jasmine.createSpyObj('HeroService', ['avgRates']);
+    const authSpy = jasmine.createSpyObj('AuthService', ['getHero', 'getAdmin']);
+    const heroSpy = jasmine.createSpyObj('HeroService', ['dummyMethod', 'avgRates']);
 
     await TestBed.configureTestingModule({
-      declarations: [HeroDetailsComponent],
-      providers: [
-        { provide: AuthService, useValue: authServiceSpy },
-        { provide: HeroService, useValue: heroServiceSpy },
-        { provide: MAT_DIALOG_DATA, useValue: 'userId' }
+      declarations: [ HeroDetailsComponent ],
+      imports: [
+        HttpClientTestingModule,
+        MatDialogModule,
+        NoopAnimationsModule
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: '1' },
+        { provide: AuthService, useValue: authSpy },
+        { provide: HeroService, useValue: heroSpy }
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+    .compileComponents();
 
-    authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
-    heroService = TestBed.inject(HeroService) as jasmine.SpyObj<HeroService>;
-  });
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(HeroDetailsComponent);
     component = fixture.componentInstance;
-  });
+    authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
+    heroServiceSpy = TestBed.inject(HeroService) as jasmine.SpyObj<HeroService>;
 
-  it('should create', () => {
-    authService.getHero.and.returnValue(of([]));
-    authService.getAdmin.and.returnValue(of([]));
-
-    fixture.detectChanges();
-
-    expect(component).toBeTruthy();
+    heroServiceSpy.avgRates.and.returnValue(0);
   });
 
   it('should fetch hero on init if userId is provided', () => {
-    const mockHeroResponse = [{ id: '1', heroName: 'Superman', age: '30', gender: 'm', powers: ['fly'], rates: [] }];
-    authService.getHero.and.returnValue(of(mockHeroResponse));
+    const mockHero = { id: '1', heroName: 'Superman', age: '30', gender: 'm', powers: ['fly'], rates: [] };
+    authServiceSpy.getHero.and.returnValue(of(mockHero));
 
     fixture.detectChanges();
 
-    expect(authService.getHero).toHaveBeenCalled();
-    expect(component.hero).toEqual(mockHeroResponse[0]);
+    expect(authServiceSpy.getHero).toHaveBeenCalledWith('1');
+    expect(component.hero).toEqual(mockHero);
   });
 
   it('should fetch admin if hero is not found', () => {
-    const mockAdminResponse = [{ id: '1', name: 'Admin' }];
-    authService.getHero.and.returnValue(of([]));
-    authService.getAdmin.and.returnValue(of(mockAdminResponse));
+    const mockAdmin = { id: '1', name: 'Admin' };
+    authServiceSpy.getHero.and.returnValue(of(null));
+    authServiceSpy.getAdmin.and.returnValue(of([mockAdmin]));
 
     fixture.detectChanges();
 
-    expect(authService.getHero).toHaveBeenCalled();
-    expect(authService.getAdmin).toHaveBeenCalled();
-    expect(component.admin).toEqual(mockAdminResponse[0]);
+    expect(authServiceSpy.getHero).toHaveBeenCalledWith('1');
+    expect(authServiceSpy.getAdmin).toHaveBeenCalledWith('1');
+    expect(component.admin).toEqual(mockAdmin);
   });
-
 });

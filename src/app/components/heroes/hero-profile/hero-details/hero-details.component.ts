@@ -27,8 +27,8 @@ export class HeroDetailsComponent implements OnInit {
 
   getHero() {
     this.authService.getHero(this.userId).subscribe((res: any) => {
-      if(res[0])
-        this.hero = res[0];
+      if(res)
+        this.hero = res;
       else
         this.getAdmin();
     });
