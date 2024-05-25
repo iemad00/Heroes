@@ -33,6 +33,7 @@ describe('AuthService', () => {
 
   afterEach(() => {
     httpMock.verify();
+    sessionStorage.clear(); // Clear session after each test
   });
 
   it('should be created', () => {
@@ -109,6 +110,7 @@ describe('AuthService', () => {
 
   describe('#isAuthorized', () => {
     it('should return true if user has required role', async () => {
+      sessionStorage.setItem('userId', '1');
       spyOn(service, 'isAuthenticated').and.returnValue(true);
       const mockUserResponse = [{ id: '1', role: 'admin' }];
 
@@ -122,6 +124,7 @@ describe('AuthService', () => {
     });
 
     it('should return false if user does not have required role', async () => {
+      sessionStorage.setItem('userId', '1');
       spyOn(service, 'isAuthenticated').and.returnValue(true);
       const mockUserResponse = [{ id: '1', role: 'user' }];
 
