@@ -4,6 +4,7 @@ import { GetHeroList, CreateHero, RateHero } from './hero.actions';
 import { IHero } from 'src/app/interfaces/hero';
 import { HeroService } from 'src/app/services/hero.service';
 import { ToastrService } from 'ngx-toastr';
+import { tap, catchError, throwError, from } from 'rxjs';
 
 export interface HeroStateModel {
   heroList: IHero[];
@@ -36,15 +37,17 @@ export class HeroState {
   }
 
   @Action(CreateHero)
-  async createHero(ctx: StateContext<HeroStateModel>, action: CreateHero) {
-      await this.heroService.createHero(action.hero, action.credentials).then(newHero => {
-
+  createHero(ctx: StateContext<HeroStateModel>, action: CreateHero) {
+    return from(this.heroService.createHero(action.hero, action.credentials)).pipe(
+      tap((newHero: IHero) => {
         const state = ctx.getState();
         ctx.patchState({ heroList: [...state.heroList, newHero] });
-
-      }).catch(err => {
-        this.toastr.error(err)
+      }),
+      catchError((err) => {
+        this.toastr.error(err);
+        throw err;
       })
+    );
   }
 
   @Action(RateHero)

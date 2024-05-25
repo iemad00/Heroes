@@ -86,17 +86,20 @@ export class CreateHeroFormComponent {
     delete dto.password;
     dto.powers = dto.powers.map((powerObj: { power: any; }) => powerObj.power);
 
-    this.store.dispatch(new CreateHero(dto, credentials as IUser)).subscribe(res => {
-      this.loading = false;
+    this.store.dispatch(new CreateHero(dto, credentials as IUser)).subscribe(
+      res => {
+        this.loading = false;
 
-      if(this.dialogRef) // if admin creates the hero
-        this.dialogRef?.close();
-      else // if user register
-        this.router.navigate(['/login'])
+        if (this.dialogRef) // if admin creates the hero
+          this.dialogRef.close();
+        else  // if user registers
+          this.router.navigate(['/login']);
 
-    }, err => {
-      this.loading = false;
-    })
+      },
+      err => {
+        this.loading = false;
+      }
+    );
 
 
   }
